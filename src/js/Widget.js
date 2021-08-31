@@ -6,6 +6,7 @@ export default class Widget {
   constructor(container) {
     this.container = container;
     this.messagesContainer = document.querySelector('.widget__content');
+    this.buttonSubscribe = document.querySelector('.button__subscribe');
   }
 
   init() {
@@ -13,27 +14,32 @@ export default class Widget {
     this.subscribeOnStreams();
   }
 
-  registerEvents() {}
+  registerEvents() {
+    this.buttonSubscribe.addEventListener('click', () => {
+      this.subscribeOnStreams();
+    });
+  }
 
   subscribeOnStreams() {
     this.messageStream$ = interval(1000)
       .pipe(
-        mergeMap(() => {
+        mergeMap(() =>
           ajax.getJSON('https://ahj-rxjs-back.herokuapp.com/messages/unread').pipe(
             map((response) => {
               const filteredResponse = response.messages.filter(
-                (message) => !this.messagesContainer.includes(message.id)
+                (message) => !this.messagesIdContainer.includes(message.id)
               );
+              filteredResponse.forEach((message) => this.messagesIdContainer.push(message.id));
               return filteredResponse;
             }),
             timestamp(),
-            catchError(() => {
+            catchError(() =>
               of({
                 value: [],
-              });
-            })
-          );
-        })
+              })
+            )
+          )
+        )
       )
       .subscribe((response) => {
         response.value.forEach((message) => this.addMessage(response.timestamp, message));
