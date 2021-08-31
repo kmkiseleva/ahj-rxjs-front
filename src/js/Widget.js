@@ -6,12 +6,13 @@ export default class Widget {
   constructor(container) {
     this.container = container;
     this.messagesContainer = document.querySelector('.widget__content');
+    this.messagesIdContainer = [];
     this.buttonSubscribe = document.querySelector('.button__subscribe');
   }
 
   init() {
     this.registerEvents();
-    this.subscribeOnStreams();
+    // this.subscribeOnStreams();
   }
 
   registerEvents() {
@@ -21,7 +22,7 @@ export default class Widget {
   }
 
   subscribeOnStreams() {
-    this.messageStream$ = interval(1000)
+    this.messageStream$ = interval(3000)
       .pipe(
         mergeMap(() =>
           ajax.getJSON('https://ahj-rxjs-back.herokuapp.com/messages/unread').pipe(
@@ -48,7 +49,7 @@ export default class Widget {
 
   addMessage(currentDate, message) {
     const messageHTML = this.markupMessage(currentDate, message);
-    this.messagesContainer.insertAdjacentElement('afterbegin', messageHTML);
+    this.messagesContainer.insertAdjacentHTML('afterbegin', messageHTML);
   }
 
   markupMessage(currentDate, message) {
