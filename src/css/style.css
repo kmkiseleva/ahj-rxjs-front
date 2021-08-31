@@ -1,0 +1,43 @@
+body {
+  background-image: url('../img/chat-back.jpg');
+  background-repeat: no-repeat;
+}
+
+.widget__title {
+  width: 200px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+
+.widget__controls {
+  width: 100px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.button__subscribe {
+  height: 30px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.widget__content {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.message__body {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
